@@ -53,6 +53,16 @@
 
 }
 
+- (void)viewWillDisappear:(BOOL)animated
+{
+    NSLog(@"Invoked viewWillDisappear");
+    if (self.team) {
+        self.team.name = self.nameField.text;
+        self.team.uniformColor = self.colorField.text;
+        [self.rootViewController saveContext];
+    }
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -66,10 +76,7 @@
     NSEntityDescription *entity = [self.rootViewController.fetchedResultsController.fetchRequest entity];
     Team *newTeam = [[Team alloc] initWithEntity:entity insertIntoManagedObjectContext:context];
     
-    newTeam.name = self.nameField.text;
-    newTeam.uniformColor = self.colorField.text;
-    
-    [self.rootViewController saveContext];
+    self.team = newTeam;
     
     [self dismissViewControllerAnimated:YES completion:nil];
 }

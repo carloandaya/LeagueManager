@@ -106,9 +106,7 @@
 {
     Team *selectedTeam = [[self fetchedResultsController] objectAtIndexPath:indexPath];
     
-    if (!self.detailViewController) {
-        self.detailViewController = [[LMDetailViewController alloc] initWithRootViewController:self team:selectedTeam];
-    }
+    self.detailViewController = [[LMDetailViewController alloc] initWithRootViewController:self team:selectedTeam];
     
     [self.navigationController pushViewController:self.detailViewController animated:YES];
 }
