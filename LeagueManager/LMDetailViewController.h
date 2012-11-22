@@ -8,9 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
+@class LMMasterViewController, Team;
+
 @interface LMDetailViewController : UIViewController
 
-@property (strong, nonatomic) id detailItem;
+@property (retain, nonatomic) Team *team;
+@property (retain, nonatomic) LMMasterViewController *rootViewController;
+@property (weak, nonatomic) IBOutlet UITextField *nameField;
+@property (weak, nonatomic) IBOutlet UITextField *colorField;
 
-@property (weak, nonatomic) IBOutlet UILabel *detailDescriptionLabel;
+- (id)initWithRootViewController:(LMMasterViewController *)aRootController team:(Team *)aTeam;
+
 @end

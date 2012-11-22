@@ -43,15 +43,13 @@
 
 - (void)insertNewObject:(id)sender
 {
-    NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
-    NSEntityDescription *entity = [[self.fetchedResultsController fetchRequest] entity];
-    NSManagedObject *newManagedObject = [NSEntityDescription insertNewObjectForEntityForName:[entity name] inManagedObjectContext:context];
+    LMDetailViewController *detailViewController = [[LMDetailViewController alloc] initWithRootViewController:self team:nil];
     
-    // If appropriate, configure the new managed object.
-    // Normally you should use accessor methods, but using KVC here avoids the need to add a custom class to the template.
-    [newManagedObject setValue:[NSDate date] forKey:@"timeStamp"];
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:detailViewController];
     
-    [self saveContext];
+    [navController setModalPresentationStyle:UIModalPresentationFormSheet];
+    [navController setModalTransitionStyle:UIModalTransitionStyleFlipHorizontal];
+    [self.navigationController presentViewController:navController animated:YES completion:nil];
 }
 
 #pragma mark - Table View
@@ -106,11 +104,12 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    Team *selectedTeam = [[self fetchedResultsController] objectAtIndexPath:indexPath];
+    
     if (!self.detailViewController) {
-        self.detailViewController = [[LMDetailViewController alloc] initWithNibName:@"LMDetailViewController" bundle:nil];
+        self.detailViewController = [[LMDetailViewController alloc] initWithRootViewController:self team:selectedTeam];
     }
-    NSManagedObject *object = [[self fetchedResultsController] objectAtIndexPath:indexPath];
-    self.detailViewController.detailItem = object;
+    
     [self.navigationController pushViewController:self.detailViewController animated:YES];
 }
 

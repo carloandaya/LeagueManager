@@ -7,39 +7,50 @@
 //
 
 #import "LMDetailViewController.h"
+#import "LMMasterViewController.h"
+#import "Team.h"
 
 @interface LMDetailViewController ()
-- (void)configureView;
+
 @end
 
 @implementation LMDetailViewController
 
-#pragma mark - Managing the detail item
-
-- (void)setDetailItem:(id)newDetailItem
+- (id)initWithRootViewController:(LMMasterViewController *)aRootController team:(Team *)aTeam
 {
-    if (_detailItem != newDetailItem) {
-        _detailItem = newDetailItem;
+    self = [super init];
+    if (self) {
+        self.navigationController.title = NSLocalizedString(@"Team", @"Team");
+        self.rootViewController = aRootController;
+        self.team = aTeam;
         
-        // Update the view.
-        [self configureView];
-    }
-}
+        // If we are creating a new team, then add done and cancel buttons to the
+        // navigation item.
+        if (!self.team) {
+            UINavigationItem *navItem = self.navigationItem;
 
-- (void)configureView
-{
-    // Update the user interface for the detail item.
-
-    if (self.detailItem) {
-        self.detailDescriptionLabel.text = [[self.detailItem valueForKey:@"timeStamp"] description];
+            UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(save:)];
+            
+            UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancel:)];
+            
+            navItem.rightBarButtonItem = doneButton;
+            navItem.leftBarButtonItem = cancelButton;
+        }
     }
+    return self; 
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
-    [self configureView];
+    
+    // If the detail view controller was called by selecting a team
+    // populat the textfields with the contents
+    if (self.team) {
+        self.nameField.text = self.team.name;
+        self.colorField.text = self.team.uniformColor;
+    }
+
 }
 
 - (void)didReceiveMemoryWarning
@@ -48,13 +59,23 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+#pragma mark - Navigation Item Buttons
+- (void)save:(id)sender
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        self.title = NSLocalizedString(@"Detail", @"Detail");
-    }
-    return self;
+    NSManagedObjectContext *context = [self.rootViewController.fetchedResultsController managedObjectContext];
+    NSEntityDescription *entity = [self.rootViewController.fetchedResultsController.fetchRequest entity];
+    Team *newTeam = [[Team alloc] initWithEntity:entity insertIntoManagedObjectContext:context];
+    
+    newTeam.name = self.nameField.text;
+    newTeam.uniformColor = self.colorField.text;
+    
+    [self.rootViewController saveContext];
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
-							
+
+- (void)cancel:(id)sender
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 @end
