@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1811" systemVersion="12C60" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
-    <entity name="Player" syncable="YES">
+    <entity name="Player" representedClassName="Player" syncable="YES">
         <attribute name="email" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="firstName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="lastName" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="team" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Team" inverseName="players" inverseEntity="Team" syncable="YES"/>
     </entity>
-    <entity name="Team" syncable="YES">
+    <entity name="Team" representedClassName="Team" syncable="YES">
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="uniformColor" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="players" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Player" inverseName="team" inverseEntity="Player" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Team" positionX="160" positionY="192" width="128" height="90"/>
-        <element name="Player" positionX="385" positionY="300" width="128" height="105"/>
+        <element name="Team" positionX="160" positionY="192" width="128" height="88"/>
+        <element name="Player" positionX="385" positionY="300" width="128" height="103"/>
     </elements>
 </model>

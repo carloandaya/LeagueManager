@@ -22,6 +22,8 @@
 		23D5760C165DA8A2005D3F3F /* LMDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D5760B165DA8A2005D3F3F /* LMDetailViewController.m */; };
 		23D5760F165DA8A2005D3F3F /* LMMasterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 23D5760D165DA8A2005D3F3F /* LMMasterViewController.xib */; };
 		23D57612165DA8A2005D3F3F /* LMDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 23D57610165DA8A2005D3F3F /* LMDetailViewController.xib */; };
+		23D5761E165DABAC005D3F3F /* Team.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D5761D165DABAC005D3F3F /* Team.m */; };
+		23D57622165DABBF005D3F3F /* Player.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D57621165DABBF005D3F3F /* Player.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +48,10 @@
 		23D5760B165DA8A2005D3F3F /* LMDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LMDetailViewController.m; sourceTree = "<group>"; };
 		23D5760E165DA8A2005D3F3F /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/LMMasterViewController.xib; sourceTree = "<group>"; };
 		23D57611165DA8A2005D3F3F /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/LMDetailViewController.xib; sourceTree = "<group>"; };
+		23D5761C165DABAC005D3F3F /* Team.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Team.h; sourceTree = "<group>"; };
+		23D5761D165DABAC005D3F3F /* Team.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Team.m; sourceTree = "<group>"; };
+		23D57620165DABBF005D3F3F /* Player.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Player.h; sourceTree = "<group>"; };
+		23D57621165DABBF005D3F3F /* Player.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Player.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +109,10 @@
 				23D5760D165DA8A2005D3F3F /* LMMasterViewController.xib */,
 				23D57610165DA8A2005D3F3F /* LMDetailViewController.xib */,
 				23D57604165DA8A2005D3F3F /* LeagueManager.xcdatamodeld */,
+				23D57620165DABBF005D3F3F /* Player.h */,
+				23D57621165DABBF005D3F3F /* Player.m */,
+				23D5761C165DABAC005D3F3F /* Team.h */,
+				23D5761D165DABAC005D3F3F /* Team.m */,
 				23D575F3165DA8A2005D3F3F /* Supporting Files */,
 			);
 			path = LeagueManager;
@@ -195,6 +205,8 @@
 				23D57606165DA8A2005D3F3F /* LeagueManager.xcdatamodeld in Sources */,
 				23D57609165DA8A2005D3F3F /* LMMasterViewController.m in Sources */,
 				23D5760C165DA8A2005D3F3F /* LMDetailViewController.m in Sources */,
+				23D5761E165DABAC005D3F3F /* Team.m in Sources */,
+				23D57622165DABBF005D3F3F /* Player.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -319,6 +331,7 @@
 				23D57617165DA8A2005D3F3F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
