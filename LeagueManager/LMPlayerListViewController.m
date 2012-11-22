@@ -7,6 +7,7 @@
 //
 
 #import "LMPlayerListViewController.h"
+#import "Team.h"
 
 @interface LMPlayerListViewController ()
 
@@ -18,18 +19,8 @@
 {
     self = [super init];
     if (self) {
-        self.navigationItem.title = NSLocalizedString(@"Players", @"Players");
         self.rootViewController = aController;
         self.team = aTeam;
-    }
-    return self;
-}
-
-- (id)initWithStyle:(UITableViewStyle)style
-{
-    self = [super initWithStyle:style];
-    if (self) {
-        // Custom initialization
     }
     return self;
 }
@@ -38,11 +29,17 @@
 {
     [super viewDidLoad];
 
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    self.title = @"Players";
+    
+    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(showPlayerView)];
+    self.navigationItem.rightBarButtonItem = addButton;
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    [self.tableView reloadData];
 }
 
 - (void)didReceiveMemoryWarning
@@ -55,16 +52,12 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-#warning Potentially incomplete method implementation.
-    // Return the number of sections.
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-#warning Incomplete method implementation.
-    // Return the number of rows in the section.
-    return 0;
+    return [self.team.players count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -75,7 +68,7 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     
-    // Configure the cell...
+    cell.textLabel.text = [self.sortPlayers objectAtIndex:indexPath.row];
     
     return cell;
 }
@@ -130,6 +123,13 @@
      // Pass the selected object to the new view controller.
      [self.navigationController pushViewController:detailViewController animated:YES];
      */
+}
+
+- (NSArray *)sortPlayers
+{
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"lastName" ascending:YES];
+    NSArray *sortDescriptorArray = [NSArray arrayWithObjects:sortDescriptor, nil];
+    return [self.team.players sortedArrayUsingDescriptors:sortDescriptorArray];
 }
 
 @end

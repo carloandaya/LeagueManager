@@ -8,6 +8,7 @@
 
 #import "LMMasterViewController.h"
 #import "LMDetailViewController.h"
+#import "LMPlayerListViewController.h"
 #import "Team.h"
 
 @interface LMMasterViewController ()
@@ -109,6 +110,16 @@
     self.detailViewController = [[LMDetailViewController alloc] initWithRootViewController:self team:selectedTeam];
     
     [self.navigationController pushViewController:self.detailViewController animated:YES];
+}
+
+- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath
+{
+    // Get the team for the selected row
+    Team *selectedTeam = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    
+    LMPlayerListViewController *plvc = [[LMPlayerListViewController alloc] initWithRootViewController:self team:selectedTeam];
+    
+    [self.navigationController pushViewController:plvc animated:YES];
 }
 
 #pragma mark - Fetched results controller
