@@ -6,14 +6,19 @@
 //  Copyright (c) 2012 Carlo Andaya. All rights reserved.
 //
 
+#import "LMMasterViewController.h"
 #import "LMPlayerListViewController.h"
+#import "LMPlayerViewController.h"
 #import "Team.h"
+#import "Player.h"
 
 @interface LMPlayerListViewController ()
 
 @end
 
 @implementation LMPlayerListViewController
+
+@synthesize team, rootViewController;
 
 - (id)initWithRootViewController:(LMMasterViewController *)aController team:(Team *)aTeam
 {
@@ -31,7 +36,7 @@
 
     self.title = @"Players";
     
-    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(showPlayerView)];
+    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewPlayer:)];
     self.navigationItem.rightBarButtonItem = addButton;
 }
 
@@ -68,7 +73,9 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     
-    cell.textLabel.text = [self.sortPlayers objectAtIndex:indexPath.row];
+    // Get the player for the row
+    Player *p = [self.sortPlayers objectAtIndex:indexPath.row];
+    cell.textLabel.text = [NSString stringWithFormat:@"%@ %@", p.firstName, p.lastName];
     
     return cell;
 }
@@ -116,13 +123,13 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     */
+    // Get the player at the selected row
+    Player *player = [self.sortPlayers objectAtIndex:indexPath.row];
+    
+    // Create and push the player view controller
+    LMPlayerViewController *pvc = [[LMPlayerViewController alloc] initWithRootViewController:self.rootViewController team:self.team player:player];
+    
+    [self.navigationController pushViewController:pvc animated:YES];
 }
 
 - (NSArray *)sortPlayers
@@ -130,6 +137,17 @@
     NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"lastName" ascending:YES];
     NSArray *sortDescriptorArray = [NSArray arrayWithObjects:sortDescriptor, nil];
     return [self.team.players sortedArrayUsingDescriptors:sortDescriptorArray];
+}
+
+- (void)insertNewPlayer:(id)sender
+{
+    LMPlayerViewController *pvc = [[LMPlayerViewController alloc] initWithRootViewController:self.rootViewController team:self.team player:nil];
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:pvc];
+    
+    navController.modalPresentationStyle = UIModalPresentationFormSheet;
+    navController.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
+    
+    [self.navigationController presentViewController:navController animated:YES completion:nil];
 }
 
 @end

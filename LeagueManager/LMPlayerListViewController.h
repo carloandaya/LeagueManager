@@ -16,7 +16,6 @@
 @property (retain, nonatomic) LMMasterViewController *rootViewController;
 
 - (id)initWithRootViewController:(LMMasterViewController *)aController team:(Team *)aTeam;
-- (void)showPlayerView;
 - (NSArray *)sortPlayers;
 
 @end
