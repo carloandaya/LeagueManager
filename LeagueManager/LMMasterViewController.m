@@ -74,8 +74,8 @@
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
+        cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
     }
 
     [self configureCell:cell atIndexPath:indexPath];
@@ -215,8 +215,9 @@
 
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
-    NSManagedObject *object = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    cell.textLabel.text = [[object valueForKey:@"timeStamp"] description];
+    Team *team = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    cell.textLabel.text = [team name];
+    cell.detailTextLabel.text = [team uniformColor];
 }
 
 - (void)insertTeamWithName:(NSString *)teamName uniformColor:(NSString *)uniformColor
